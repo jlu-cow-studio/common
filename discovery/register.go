@@ -10,7 +10,7 @@ const (
 	CHECK_DEREGISTER_CRITICAL_SERVICE_AFTER = "30s"
 )
 
-func Register(serviceName, address, httpCheck, rpcCheck string, port int) error {
+func Register(serviceName, address, httpCheck string, port int) error {
 	registration := &api.AgentServiceRegistration{}
 	registration.Name = serviceName
 	registration.Address = address
@@ -27,16 +27,4 @@ func Register(serviceName, address, httpCheck, rpcCheck string, port int) error 
 
 	err := consulClient.Agent().ServiceRegister(registration)
 	return err
-}
-
-func Register2() {
-
-}
-
-func Register3() {
-
-}
-
-func Register4() {
-
 }
