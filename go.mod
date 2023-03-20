@@ -2,10 +2,7 @@ module github.com/jlu-cow-studio/common
 
 go 1.17
 
-require (
-	github.com/hashicorp/consul/api v1.20.0
-	golang.org/x/tools v0.7.0
-)
+require github.com/hashicorp/consul/api v1.20.0
 
 require (
 	github.com/armon/go-metrics v0.0.0-20180917152333-f0300d1749da // indirect

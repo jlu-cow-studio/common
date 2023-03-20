@@ -28,3 +28,7 @@ func Register(serviceName, address, httpCheck, rpcCheck string, port int) error 
 	err := consulClient.Agent().ServiceRegister(registration)
 	return err
 }
+
+func Register2() {
+
+}
