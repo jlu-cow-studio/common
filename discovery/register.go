@@ -32,3 +32,7 @@ func Register(serviceName, address, httpCheck, rpcCheck string, port int) error 
 func Register2() {
 
 }
+
+func Register3() {
+
+}
