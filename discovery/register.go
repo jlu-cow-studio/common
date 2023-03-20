@@ -36,3 +36,7 @@ func Register2() {
 func Register3() {
 
 }
+
+func Register4() {
+
+}
