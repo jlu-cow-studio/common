@@ -9,3 +9,16 @@ type ResBase struct {
 	Message string `json:"message"`
 	Code    string `json:"code"`
 }
+
+type OnlyBaseReq struct {
+	Base ReqBase `json:"base"`
+}
+
+type OnlyBaseRes struct {
+	Base ResBase `json:"base"`
+}
+
+var InvalidRequest OnlyBaseRes = OnlyBaseRes{ResBase{
+	Message: "invalide request!",
+	Code:    "499",
+}}
