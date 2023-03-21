@@ -25,3 +25,16 @@ type UserRegisterReq struct {
 type UserRegisterRes struct {
 	Base http_struct.ResBase `json:"base"`
 }
+
+type UserInfoReq struct {
+	Base http_struct.ReqBase `json:"base"`
+}
+
+type UserInfoRes struct {
+	Base     http_struct.ResBase `json:"base"`
+	Username string              `json:"username"`
+	Province string              `json:"province"`
+	City     string              `json:"city"`
+	District string              `json:"district"`
+	Role     int                 `json:"role"`
+}
