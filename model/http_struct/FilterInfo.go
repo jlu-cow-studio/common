@@ -1,5 +1,13 @@
 package http_struct
 
+type UserLoginState string
+
+const (
+	NotLogged    UserLoginState = "Not logged"
+	LoggedIn     UserLoginState = "Logged in"
+	InvalidToken UserLoginState = "Invalid tokne"
+)
+
 type UserTokenInfo struct {
 	Token    string `json:"token"`
 	Uid      string `json:"uid"`
@@ -8,4 +16,6 @@ type UserTokenInfo struct {
 	Province string `json:"province"`
 	City     string `json:"city"`
 	District string `json:"district"`
+
+	LoginState UserLoginState `json:"login_state"`
 }
