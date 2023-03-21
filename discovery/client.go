@@ -1,6 +1,12 @@
 package discovery
 
-import "fmt"
+import (
+	"errors"
+	"fmt"
+)
+
+const redisServiceName = "cowstudio/redis"
+const mqServiceName = "cowstudio/mq"
 
 func Discover(serviceName, tag string) ([]string, error) {
 
@@ -8,10 +14,21 @@ func Discover(serviceName, tag string) ([]string, error) {
 	if err != nil {
 		return nil, nil
 	}
-	serviceNames := []string{}
+	serviceAddress := []string{}
 	for _, service := range services {
-		serviceNames = append(serviceNames, fmt.Sprintf("%v:%v", service.ServiceAddress, service.ServicePort))
+		serviceAddress = append(serviceAddress, fmt.Sprintf("%v:%v", service.ServiceAddress, service.ServicePort))
+	}
+	if len(serviceAddress) == 0 {
+		return nil, errors.New("no service found")
 	}
 
-	return serviceNames, nil
+	return serviceAddress, nil
+}
+
+func DiscoverRedis() ([]string, error) {
+	return Discover(redisServiceName, "")
+}
+
+func DiscoverMQ() ([]string, error) {
+	return Discover(mqServiceName, "")
 }
