@@ -13,7 +13,7 @@ var dbPool []*gorm.DB
 
 func Init() {
 	// 定义连接字符串
-	dsn := "root:password@tcp(127.0.0.1:3306)/test_db?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := getDSN(config.DBUser, config.DBPassword, config.DBAddress, config.DBPort, config.DBDB)
 
 	dbPool = make([]*gorm.DB, config.DBPoolSize)
 
