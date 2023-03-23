@@ -6,5 +6,5 @@ type UserInfo struct {
 	Province string `json:"province"`
 	City     string `json:"city"`
 	District string `json:"district"`
-	Role     int    `json:"role"`
+	Role     string `json:"role"`
 }

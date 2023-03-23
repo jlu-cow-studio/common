@@ -7,5 +7,5 @@ type User struct {
 	Province string `gorm:"column:province"`
 	City     string `gorm:"column:city"`
 	District string `gorm:"column:district"`
-	Role     int    `gorm:"column:role"`
+	Role     string `gorm:"column:role"`
 }
