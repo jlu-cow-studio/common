@@ -24,7 +24,7 @@ func GetConn(serviceName string) (*grpc.ClientConn, error) {
 
 	addr := addrs[0]
 
-	if conn, err := grpc.Dial(addr); err != nil {
+	if conn, err := grpc.Dial(addr, grpc.WithInsecure()); err != nil {
 		return nil, err
 	} else {
 		connPool[serviceName] = conn
