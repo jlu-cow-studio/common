@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"fmt"
-	"math/rand"
 
 	"github.com/jlu-cow-studio/common/config"
 	"gorm.io/driver/mysql"
@@ -19,16 +18,16 @@ func Init() {
 
 	for i := 0; i < config.DBPoolSize; i++ {
 		var err error
-		if dbPool[i], err = gorm.Open(mysql.Open(dsn), &gorm.Config{
-			SkipDefaultTransaction: true,
-		}); err != nil {
+		if dbPool[i], err = gorm.Open(mysql.Open(dsn), &gorm.Config{}); err != nil {
 			panic("failed to connect database")
 		}
 	}
 }
 
 func GetDBConn() *gorm.DB {
-	return dbPool[rand.Intn(config.DBPoolSize)]
+	dsn := getDSN(config.DBUser, config.DBPassword, config.DBAddress, config.DBPort, config.DBDB)
+	conn, _ := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	return conn
 }
 
 func getDSN(username, passwrod, address, port, db string) string {
