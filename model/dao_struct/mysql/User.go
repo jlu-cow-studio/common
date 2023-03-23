@@ -1,5 +1,12 @@
 package mysql
 
+const (
+	RoleNormal     = "normal"
+	RoleProducer   = "producer"
+	RoleMerchant   = "merchant"
+	RoleVeterinary = "veterinary"
+)
+
 type User struct {
 	Uid      string `gorm:"column:uid"`
 	Username string `gorm:"column:username"`
