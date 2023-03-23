@@ -19,7 +19,9 @@ func Init() {
 
 	for i := 0; i < config.DBPoolSize; i++ {
 		var err error
-		if dbPool[i], err = gorm.Open(mysql.Open(dsn), &gorm.Config{}); err != nil {
+		if dbPool[i], err = gorm.Open(mysql.Open(dsn), &gorm.Config{
+			SkipDefaultTransaction: true,
+		}); err != nil {
 			panic("failed to connect database")
 		}
 	}
