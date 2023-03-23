@@ -1,7 +1,7 @@
 package http_struct
 
 type ReqBase struct {
-	LogId string `json:"log_id"`
+	LogId string `json:"logid"`
 	Token string `json:"token"`
 }
 
