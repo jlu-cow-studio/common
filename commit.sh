@@ -1,38 +1,25 @@
 #!/bin/bash
 
-commit_msg="$1"
-if [ -z "$commit_msg" ]
-then
-  echo "Please provide a commit message"
-  exit 1
+# 获取最新tag版本号
+latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+if [ -z "$latest_tag" ]; then
+  latest_tag="v0.0.0"
 fi
 
-# Get the latest tag
-last_tag=$(git describe --abbrev=0 --tags)
+# 将版本号转化为数字并自增1
+version_number=$(echo $latest_tag | tr -d 'v')
+version_array=(${version_number//./ })
+major=${version_array[0]}
+minor=${version_array[1]}
+patch=${version_array[2]}
+patch=$((patch+1))
+new_version="v$major.$minor.$patch"
 
-# Extract the version number
-if [[ $last_tag =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]
-then
-  major=${BASH_REMATCH[1]}
-  minor=${BASH_REMATCH[2]}
-  patch=${BASH_REMATCH[3]}
-else
-  echo "Invalid tag format: $last_tag"
-  exit 1
-fi
+# 输出新的版本号
+echo "New version: $new_version"
 
-# Increment the patch number
-patch=$((patch + 1))
-
-# Create the new tag
-new_tag="v$major.$minor.$patch"
-
-echo "Creating new tag: $new_tag"
-
-# Commit changes and tag
+# 提交代码并打tag
 git add .
-git commit -m "$commit_msg"
-git tag "$new_tag"
-git push origin master "$new_tag"
-
-echo "Done"
+git commit -m "$1"
+git tag $new_version
+git push origin "$2" $new_version
