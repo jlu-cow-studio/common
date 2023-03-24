@@ -1,10 +1,12 @@
 package mysql
 
 const (
-	RoleNormal     = "normal"
-	RoleProducer   = "producer"
-	RoleMerchant   = "merchant"
-	RoleVeterinary = "veterinary"
+	RoleNormal          = "normal"
+	RoleProducer        = "producer"
+	RoleMerchant        = "merchant"
+	RoleVeterinary      = "veterinary"
+	RoleBreeder         = "breeder"
+	RoleServiceProvider = "service_provider"
 )
 
 type User struct {
