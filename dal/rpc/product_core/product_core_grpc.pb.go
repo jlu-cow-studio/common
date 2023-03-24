@@ -26,6 +26,8 @@ type ProductCoreServiceClient interface {
 	AddItem(ctx context.Context, in *AddItemReq, opts ...grpc.CallOption) (*AddItemRes, error)
 	// 删除商品方法
 	DeleteItem(ctx context.Context, in *DeleteItemReq, opts ...grpc.CallOption) (*DeleteItemRes, error)
+	// 修改商品信息方法
+	UpdateItem(ctx context.Context, in *UpdateItemReq, opts ...grpc.CallOption) (*UpdateItemRes, error)
 }
 
 type productCoreServiceClient struct {
@@ -54,6 +56,15 @@ func (c *productCoreServiceClient) DeleteItem(ctx context.Context, in *DeleteIte
 	return out, nil
 }
 
+func (c *productCoreServiceClient) UpdateItem(ctx context.Context, in *UpdateItemReq, opts ...grpc.CallOption) (*UpdateItemRes, error) {
+	out := new(UpdateItemRes)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.product_core.ProductCoreService/UpdateItem", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductCoreServiceServer is the server API for ProductCoreService service.
 // All implementations must embed UnimplementedProductCoreServiceServer
 // for forward compatibility
@@ -62,6 +73,8 @@ type ProductCoreServiceServer interface {
 	AddItem(context.Context, *AddItemReq) (*AddItemRes, error)
 	// 删除商品方法
 	DeleteItem(context.Context, *DeleteItemReq) (*DeleteItemRes, error)
+	// 修改商品信息方法
+	UpdateItem(context.Context, *UpdateItemReq) (*UpdateItemRes, error)
 	mustEmbedUnimplementedProductCoreServiceServer()
 }
 
@@ -74,6 +87,9 @@ func (UnimplementedProductCoreServiceServer) AddItem(context.Context, *AddItemRe
 }
 func (UnimplementedProductCoreServiceServer) DeleteItem(context.Context, *DeleteItemReq) (*DeleteItemRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteItem not implemented")
+}
+func (UnimplementedProductCoreServiceServer) UpdateItem(context.Context, *UpdateItemReq) (*UpdateItemRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateItem not implemented")
 }
 func (UnimplementedProductCoreServiceServer) mustEmbedUnimplementedProductCoreServiceServer() {}
 
@@ -124,6 +140,24 @@ func _ProductCoreService_DeleteItem_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductCoreService_UpdateItem_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateItemReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductCoreServiceServer).UpdateItem(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jlu_cow_studio.product_core.ProductCoreService/UpdateItem",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductCoreServiceServer).UpdateItem(ctx, req.(*UpdateItemReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductCoreService_ServiceDesc is the grpc.ServiceDesc for ProductCoreService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -138,6 +172,10 @@ var ProductCoreService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteItem",
 			Handler:    _ProductCoreService_DeleteItem_Handler,
+		},
+		{
+			MethodName: "UpdateItem",
+			Handler:    _ProductCoreService_UpdateItem_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

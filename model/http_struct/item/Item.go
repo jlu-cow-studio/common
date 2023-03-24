@@ -28,6 +28,22 @@ type DeleteItemReq struct {
 }
 
 type DeleteItemRes struct {
-	Base    http_struct.ResBase `json:"base"`
-	Success bool                `json:"success"`
+	Base http_struct.ResBase `json:"base"`
+}
+
+type UpdateItemReq struct {
+	Base         http_struct.ReqBase `json:"base"`
+	ItemID       int32               `json:"item_id"`
+	Name         string              `json:"name"`
+	Description  string              `json:"description"`
+	Price        float64             `json:"price"`
+	Stock        int32               `json:"stock"`
+	Province     string              `json:"province"`
+	City         string              `json:"city"`
+	District     string              `json:"district"`
+	SpecificAttr string              `json:"specific_attributes"`
+}
+
+type UpdateItemRes struct {
+	Base http_struct.ResBase `json:"base"`
 }
