@@ -8,7 +8,7 @@ package pack
 
 import (
 	base "github.com/jlu-cow-studio/common/dal/rpc/base"
-	product_core "github.com/jlu-cow-studio/common/dal/rpc/product-core"
+	product_core "github.com/jlu-cow-studio/common/dal/rpc/product_core"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
