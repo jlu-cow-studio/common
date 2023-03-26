@@ -1,6 +1,10 @@
 package mysql
 
-import "time"
+import (
+	"time"
+
+	"github.com/jlu-cow-studio/common/model/dao_struct/redis"
+)
 
 // 定义商品分类的常量值
 const (
@@ -31,4 +35,42 @@ type Item struct {
 // TableName sets the name of the table for the Item model.
 func (Item) TableName() string {
 	return "items"
+}
+
+func (i *Item) ToRedis() *redis.Item {
+	return &redis.Item{
+		ID:           i.ID,
+		Name:         i.Name,
+		Description:  i.Description,
+		Category:     i.Category,
+		Price:        i.Price,
+		Stock:        i.Stock,
+		Province:     i.Province,
+		City:         i.City,
+		District:     i.District,
+		ImageURL:     i.ImageURL,
+		UserID:       i.UserID,
+		UserType:     i.UserType,
+		CreatedAt:    i.CreatedAt.Unix(),
+		SpecificAttr: i.SpecificAttr,
+	}
+}
+
+func ItemFromRedis(redisItem *redis.Item) *Item {
+	return &Item{
+		ID:           redisItem.ID,
+		Name:         redisItem.Name,
+		Description:  redisItem.Description,
+		Category:     redisItem.Category,
+		Price:        redisItem.Price,
+		Stock:        redisItem.Stock,
+		Province:     redisItem.Province,
+		City:         redisItem.City,
+		District:     redisItem.District,
+		ImageURL:     redisItem.ImageURL,
+		UserID:       redisItem.UserID,
+		UserType:     redisItem.UserType,
+		CreatedAt:    time.Unix(redisItem.CreatedAt, 0),
+		SpecificAttr: redisItem.SpecificAttr,
+	}
 }
