@@ -9,6 +9,7 @@ type AddItemReq struct {
 	Category     string              `json:"category"`
 	Price        float64             `json:"price"`
 	Stock        int32               `json:"stock"`
+	ImageUrl     string              `json:"image_url"`
 	Province     string              `json:"province"`
 	City         string              `json:"city"`
 	District     string              `json:"district"`
