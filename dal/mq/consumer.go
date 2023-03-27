@@ -5,21 +5,13 @@ import (
 	"io"
 	"log"
 
-	"github.com/jlu-cow-studio/common/discovery"
 	"github.com/segmentio/kafka-go"
 )
 
 func Listen(ctx context.Context, topic string, f func(kafka.Message) error) error {
 
-	addresses, err := discovery.DiscoverMQ()
-	if err != nil {
-		return err
-	}
-
-	address := addresses[0]
-
 	r := kafka.NewReader(kafka.ReaderConfig{
-		Brokers: []string{address},
+		Brokers: []string{addressConsumer},
 		Topic:   topic,
 	})
 
