@@ -20,7 +20,7 @@ func GetWritter(topic string) *kafka.Writer {
 
 	writer := kafka.NewWriter(kafka.WriterConfig{
 		Brokers: []string{addressProducer},
-		Topic:   "topic",
+		Topic:   topic,
 	})
 
 	writerMap[topic] = writer
