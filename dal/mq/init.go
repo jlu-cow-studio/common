@@ -1,6 +1,8 @@
 package mq
 
 import (
+	"log"
+
 	"github.com/jlu-cow-studio/common/discovery"
 	"github.com/segmentio/kafka-go"
 )
@@ -38,6 +40,7 @@ func Init() {
 }
 
 func RegisterTopic(address, topic string) error {
+	log.Println("creating topic , ", topic)
 	conn, err := kafka.Dial("tcp", address)
 	if err != nil {
 		return err
