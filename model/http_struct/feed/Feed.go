@@ -14,7 +14,7 @@ type GetFeedReq struct {
 
 type GetFeedRes struct {
 	Base     http_struct.ResBase `json:"base"`
-	Items    []item.ItemInfo     `json:"items"`
+	Items    []*item.ItemInfo    `json:"items"`
 	Total    int32               `json:"total"`
 	Page     int32               `json:"page"`
 	PageSize int32               `json:"page_size"`
