@@ -2,6 +2,14 @@ package item
 
 import "github.com/jlu-cow-studio/common/model/http_struct"
 
+const (
+	Category_WholeCattle    = "whole_cattle"
+	Category_Cattle_product = "cattle_product"
+	Category_Breeding       = "breeding"
+	Category_Service        = "service"
+	Category_ServiceProduct = "service_product"
+)
+
 type ItemInfo struct {
 	ID                 int32   `json:"id"`
 	Name               string  `json:"name"`
