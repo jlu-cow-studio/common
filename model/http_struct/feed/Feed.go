@@ -5,6 +5,15 @@ import (
 	"github.com/jlu-cow-studio/common/model/http_struct/item"
 )
 
+const (
+	FeedScene_WholeCattle    = "whole_cattle"
+	FeedScene_Cattle_product = "cattle_product"
+	FeedScene_Breeding       = "breeding"
+	FeedScene_Service        = "service"
+	FeedScene_ServiceProduct = "service_product"
+	FeedScene_HomePageMix    = "homepage_mix"
+)
+
 type GetFeedReq struct {
 	Base     http_struct.ReqBase `json:"base"`
 	Scene    string              `json:"scene"`
