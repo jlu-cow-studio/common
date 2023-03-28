@@ -22,7 +22,7 @@ func Init() {
 		var err error
 		if dbPool[i], err = gorm.Open(mysql.Open(dsn), &gorm.Config{
 			// SkipDefaultTransaction: true, // 禁用默认事务
-			Logger:      logger.Default,
+			Logger:      logger.Default.LogMode(logger.Info),
 			PrepareStmt: true, // 创建并缓存预编译语句
 		}); err != nil {
 			panic("failed to connect database")
