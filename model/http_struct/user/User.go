@@ -2,6 +2,15 @@ package user
 
 import "github.com/jlu-cow-studio/common/model/http_struct"
 
+const (
+	RoleNormal          = "normal"
+	RoleProducer        = "producer"
+	RoleMerchant        = "merchant"
+	RoleVeterinary      = "veterinary"
+	RoleBreeder         = "breeder"
+	RoleServiceProvider = "service_provider"
+)
+
 type UserLoginReq struct {
 	Base     http_struct.ReqBase `json:"base"`
 	Username string              `json:"username"`
