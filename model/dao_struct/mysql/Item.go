@@ -51,7 +51,6 @@ func (i *Item) ToRedis() *redis.Item {
 		ImageURL:     i.ImageURL,
 		UserID:       i.UserID,
 		UserType:     i.UserType,
-		CreatedAt:    i.CreatedAt.Unix(),
 		SpecificAttr: i.SpecificAttr,
 	}
 }
@@ -70,7 +69,87 @@ func ItemFromRedis(redisItem *redis.Item) *Item {
 		ImageURL:     redisItem.ImageURL,
 		UserID:       redisItem.UserID,
 		UserType:     redisItem.UserType,
-		CreatedAt:    time.Unix(redisItem.CreatedAt, 0),
 		SpecificAttr: redisItem.SpecificAttr,
+	}
+}
+
+type ItemForFeed struct {
+	ID                 int     `gorm:"column:id"`
+	Name               string  `gorm:"column:name"`
+	Description        string  `gorm:"column:description"`
+	Category           string  `gorm:"column:category"`
+	Price              float64 `gorm:"column:price"`
+	Stock              int     `gorm:"column:stock"`
+	Province           string  `gorm:"column:province"`
+	City               string  `gorm:"column:city"`
+	District           string  `gorm:"column:district"`
+	ImageURL           string  `gorm:"column:image_url"`
+	UserID             int     `gorm:"column:user_id"`
+	UserType           string  `gorm:"column:user_type"`
+	SpecificAttributes string  `gorm:"column:specific_attributes"`
+	UID                int     `gorm:"column:uid"`
+	Username           string  `gorm:"column:username"`
+	UProvince          string  `gorm:"column:uprovince"`
+	UCity              string  `gorm:"column:ucity"`
+	UDistrict          string  `gorm:"column:udistrict"`
+	URole              string  `gorm:"column:urole"`
+}
+
+// 定义items_with_user视图的表名和主键
+func (ItemForFeed) TableName() string {
+	return "items_with_user"
+}
+
+func (ItemForFeed) PrimaryKey() string {
+	return "id"
+}
+
+// 将ItemWithUser转换为ItemWithUserJSON
+func (i *ItemForFeed) ToRedis() *redis.ItemForFeed {
+	return &redis.ItemForFeed{
+		ID:                 i.ID,
+		Name:               i.Name,
+		Description:        i.Description,
+		Category:           i.Category,
+		Price:              i.Price,
+		Stock:              i.Stock,
+		Province:           i.Province,
+		City:               i.City,
+		District:           i.District,
+		ImageURL:           i.ImageURL,
+		UserID:             i.UserID,
+		UserType:           i.UserType,
+		SpecificAttributes: i.SpecificAttributes,
+		UID:                i.UID,
+		Username:           i.Username,
+		UProvince:          i.UProvince,
+		UCity:              i.UCity,
+		UDistrict:          i.UDistrict,
+		URole:              i.URole,
+	}
+}
+
+// 将ItemWithUserJSON转换为ItemWithUser
+func FromRedis(i *ItemForFeed) *redis.ItemForFeed {
+	return &redis.ItemForFeed{
+		ID:                 i.ID,
+		Name:               i.Name,
+		Description:        i.Description,
+		Category:           i.Category,
+		Price:              i.Price,
+		Stock:              i.Stock,
+		Province:           i.Province,
+		City:               i.City,
+		District:           i.District,
+		ImageURL:           i.ImageURL,
+		UserID:             i.UserID,
+		UserType:           i.UserType,
+		SpecificAttributes: i.SpecificAttributes,
+		UID:                i.UID,
+		Username:           i.Username,
+		UProvince:          i.UProvince,
+		UCity:              i.UCity,
+		UDistrict:          i.UDistrict,
+		URole:              i.URole,
 	}
 }
