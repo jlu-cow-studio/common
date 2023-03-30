@@ -18,6 +18,7 @@ var (
 )
 
 func Init() {
+	log.Println("initialing mq ...")
 	addresses, err := discovery.DiscoverMQ()
 	if err != nil {
 		panic(err)
@@ -26,17 +27,22 @@ func Init() {
 	addressConsumer = addresses[0]
 	addressProducer = addresses[0]
 
+	log.Println("get address ", addressConsumer, addressProducer)
+
 	topics := []string{
 		Topic_ItemChange,
 		Topic_ClientEvent,
 	}
 
+	log.Println("registering topics ...")
 	for _, topic := range topics {
 		err := RegisterTopic(addressProducer, topic)
 		if err != nil {
 			panic(err)
 		}
 	}
+
+	log.Println("mq init done!")
 }
 
 func RegisterTopic(address, topic string) error {
