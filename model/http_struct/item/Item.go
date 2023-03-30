@@ -42,10 +42,10 @@ type ItemForFeed struct {
 	SpecificAttributes string  `json:"specific_attributes"`
 	UID                int     `json:"uid"`
 	Username           string  `json:"username"`
+	URole              string  `json:"urole"`
 	UProvince          string  `json:"uprovince"`
 	UCity              string  `json:"ucity"`
 	UDistrict          string  `json:"udistrict"`
-	URole              string  `json:"urole"`
 }
 
 type AddItemReq struct {
