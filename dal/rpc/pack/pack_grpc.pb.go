@@ -22,8 +22,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PackServiceClient interface {
-	// 用户登录方法
-	PackItems(ctx context.Context, in *PackItemsReq, opts ...grpc.CallOption) (*PackItemsRes, error)
+	// 给feed流进行pack
+	PackItemsForFeed(ctx context.Context, in *PackItemsForFeedReq, opts ...grpc.CallOption) (*PackItemsForFeedRes, error)
 }
 
 type packServiceClient struct {
@@ -34,9 +34,9 @@ func NewPackServiceClient(cc grpc.ClientConnInterface) PackServiceClient {
 	return &packServiceClient{cc}
 }
 
-func (c *packServiceClient) PackItems(ctx context.Context, in *PackItemsReq, opts ...grpc.CallOption) (*PackItemsRes, error) {
-	out := new(PackItemsRes)
-	err := c.cc.Invoke(ctx, "/jlu_cow_studio.pack.PackService/PackItems", in, out, opts...)
+func (c *packServiceClient) PackItemsForFeed(ctx context.Context, in *PackItemsForFeedReq, opts ...grpc.CallOption) (*PackItemsForFeedRes, error) {
+	out := new(PackItemsForFeedRes)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.pack.PackService/PackItemsForFeed", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -47,8 +47,8 @@ func (c *packServiceClient) PackItems(ctx context.Context, in *PackItemsReq, opt
 // All implementations must embed UnimplementedPackServiceServer
 // for forward compatibility
 type PackServiceServer interface {
-	// 用户登录方法
-	PackItems(context.Context, *PackItemsReq) (*PackItemsRes, error)
+	// 给feed流进行pack
+	PackItemsForFeed(context.Context, *PackItemsForFeedReq) (*PackItemsForFeedRes, error)
 	mustEmbedUnimplementedPackServiceServer()
 }
 
@@ -56,8 +56,8 @@ type PackServiceServer interface {
 type UnimplementedPackServiceServer struct {
 }
 
-func (UnimplementedPackServiceServer) PackItems(context.Context, *PackItemsReq) (*PackItemsRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PackItems not implemented")
+func (UnimplementedPackServiceServer) PackItemsForFeed(context.Context, *PackItemsForFeedReq) (*PackItemsForFeedRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PackItemsForFeed not implemented")
 }
 func (UnimplementedPackServiceServer) mustEmbedUnimplementedPackServiceServer() {}
 
@@ -72,20 +72,20 @@ func RegisterPackServiceServer(s grpc.ServiceRegistrar, srv PackServiceServer) {
 	s.RegisterService(&PackService_ServiceDesc, srv)
 }
 
-func _PackService_PackItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PackItemsReq)
+func _PackService_PackItemsForFeed_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PackItemsForFeedReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(PackServiceServer).PackItems(ctx, in)
+		return srv.(PackServiceServer).PackItemsForFeed(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/jlu_cow_studio.pack.PackService/PackItems",
+		FullMethod: "/jlu_cow_studio.pack.PackService/PackItemsForFeed",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PackServiceServer).PackItems(ctx, req.(*PackItemsReq))
+		return srv.(PackServiceServer).PackItemsForFeed(ctx, req.(*PackItemsForFeedReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -98,8 +98,8 @@ var PackService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*PackServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "PackItems",
-			Handler:    _PackService_PackItems_Handler,
+			MethodName: "PackItemsForFeed",
+			Handler:    _PackService_PackItemsForFeed_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
