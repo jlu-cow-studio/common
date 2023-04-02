@@ -16,31 +16,31 @@ type OrderInfo struct {
 }
 
 type OrderListReq struct {
-	Base    http_struct.ReqBase `json:"http_struct"`
+	Base    http_struct.ReqBase `json:"base"`
 	Page    int32               `json:"page"`
 	PerPage int32               `json:"per_page"`
 }
 
 type OrderListRes struct {
-	Base      http_struct.ResBase `json:"http_struct"`
+	Base      http_struct.ResBase `json:"base"`
 	OrderList []*OrderInfo        `json:"order_list"`
 }
 
 type OrderReq struct {
-	Base   http_struct.ReqBase `json:"http_struct"`
+	Base   http_struct.ReqBase `json:"base"`
 	ItemID int64               `json:"item_id"`
 	Count  int32               `json:"count"`
 }
 
 type OrderRes struct {
-	Base http_struct.ResBase `json:"http_struct"`
+	Base http_struct.ResBase `json:"base"`
 }
 
 type RechargeReq struct {
-	Base  http_struct.ReqBase `json:"http_struct"`
+	Base  http_struct.ReqBase `json:"base"`
 	Money float64             `json:"money"`
 }
 
 type RechargeRes struct {
-	Base http_struct.ResBase `json:"http_struct"`
+	Base http_struct.ResBase `json:"base"`
 }
