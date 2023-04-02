@@ -17,7 +17,6 @@ type OrderInfo struct {
 
 type OrderListReq struct {
 	Base    http_struct.ReqBase `json:"http_struct"`
-	UserID  int64               `json:"user_id"`
 	Page    int32               `json:"page"`
 	PerPage int32               `json:"per_page"`
 }
