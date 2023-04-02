@@ -24,6 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type TreadeCoreServiceClient interface {
 	Recharge(ctx context.Context, in *RechargeRequest, opts ...grpc.CallOption) (*RechargeResponse, error)
 	Order(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*OrderResponse, error)
+	OrderList(ctx context.Context, in *OrderListRequest, opts ...grpc.CallOption) (*OrderListResponse, error)
 }
 
 type treadeCoreServiceClient struct {
@@ -52,12 +53,22 @@ func (c *treadeCoreServiceClient) Order(ctx context.Context, in *OrderRequest, o
 	return out, nil
 }
 
+func (c *treadeCoreServiceClient) OrderList(ctx context.Context, in *OrderListRequest, opts ...grpc.CallOption) (*OrderListResponse, error) {
+	out := new(OrderListResponse)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TreadeCoreService/OrderList", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TreadeCoreServiceServer is the server API for TreadeCoreService service.
 // All implementations must embed UnimplementedTreadeCoreServiceServer
 // for forward compatibility
 type TreadeCoreServiceServer interface {
 	Recharge(context.Context, *RechargeRequest) (*RechargeResponse, error)
 	Order(context.Context, *OrderRequest) (*OrderResponse, error)
+	OrderList(context.Context, *OrderListRequest) (*OrderListResponse, error)
 	mustEmbedUnimplementedTreadeCoreServiceServer()
 }
 
@@ -70,6 +81,9 @@ func (UnimplementedTreadeCoreServiceServer) Recharge(context.Context, *RechargeR
 }
 func (UnimplementedTreadeCoreServiceServer) Order(context.Context, *OrderRequest) (*OrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Order not implemented")
+}
+func (UnimplementedTreadeCoreServiceServer) OrderList(context.Context, *OrderListRequest) (*OrderListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method OrderList not implemented")
 }
 func (UnimplementedTreadeCoreServiceServer) mustEmbedUnimplementedTreadeCoreServiceServer() {}
 
@@ -120,6 +134,24 @@ func _TreadeCoreService_Order_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TreadeCoreService_OrderList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TreadeCoreServiceServer).OrderList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jlu_cow_studio.trade_core.TreadeCoreService/OrderList",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TreadeCoreServiceServer).OrderList(ctx, req.(*OrderListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TreadeCoreService_ServiceDesc is the grpc.ServiceDesc for TreadeCoreService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -134,6 +166,10 @@ var TreadeCoreService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Order",
 			Handler:    _TreadeCoreService_Order_Handler,
+		},
+		{
+			MethodName: "OrderList",
+			Handler:    _TreadeCoreService_OrderList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
