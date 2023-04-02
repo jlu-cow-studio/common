@@ -11,3 +11,8 @@ type Order struct {
 	UnitPrice        float64   `gorm:"column:unit_price"`
 	TotalPrice       float64   `gorm:"column:total_price"`
 }
+
+type OrderForList struct {
+	Order
+	ItemInfo *Item `gorm:"foreignKey:item_id"`
+}
