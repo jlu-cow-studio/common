@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TreadeCoreServiceClient interface {
 	Recharge(ctx context.Context, in *RechargeRequest, opts ...grpc.CallOption) (*RechargeResponse, error)
+	Order(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*OrderResponse, error)
 }
 
 type treadeCoreServiceClient struct {
@@ -42,11 +43,21 @@ func (c *treadeCoreServiceClient) Recharge(ctx context.Context, in *RechargeRequ
 	return out, nil
 }
 
+func (c *treadeCoreServiceClient) Order(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*OrderResponse, error) {
+	out := new(OrderResponse)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TreadeCoreService/Order", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TreadeCoreServiceServer is the server API for TreadeCoreService service.
 // All implementations must embed UnimplementedTreadeCoreServiceServer
 // for forward compatibility
 type TreadeCoreServiceServer interface {
 	Recharge(context.Context, *RechargeRequest) (*RechargeResponse, error)
+	Order(context.Context, *OrderRequest) (*OrderResponse, error)
 	mustEmbedUnimplementedTreadeCoreServiceServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedTreadeCoreServiceServer struct {
 
 func (UnimplementedTreadeCoreServiceServer) Recharge(context.Context, *RechargeRequest) (*RechargeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Recharge not implemented")
+}
+func (UnimplementedTreadeCoreServiceServer) Order(context.Context, *OrderRequest) (*OrderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Order not implemented")
 }
 func (UnimplementedTreadeCoreServiceServer) mustEmbedUnimplementedTreadeCoreServiceServer() {}
 
@@ -88,6 +102,24 @@ func _TreadeCoreService_Recharge_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _TreadeCoreService_Order_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TreadeCoreServiceServer).Order(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jlu_cow_studio.trade_core.TreadeCoreService/Order",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TreadeCoreServiceServer).Order(ctx, req.(*OrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TreadeCoreService_ServiceDesc is the grpc.ServiceDesc for TreadeCoreService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var TreadeCoreService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Recharge",
 			Handler:    _TreadeCoreService_Recharge_Handler,
+		},
+		{
+			MethodName: "Order",
+			Handler:    _TreadeCoreService_Order_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
