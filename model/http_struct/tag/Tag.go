@@ -23,7 +23,7 @@ type TagCategory struct {
 	ID       int    `json:"tag_category_id"`
 	Name     string `json:"tag_category_name"`
 	ParentID int    `json:"parent_id"`
-	Level    int8   `json:"level"`
+	Level    int32  `json:"level"`
 }
 
 type TagCategoryWithList struct {
