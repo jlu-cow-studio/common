@@ -7,7 +7,10 @@
 package tag_core
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type TagCoreServiceClient interface {
+	GetTagListByScene(ctx context.Context, in *GetTagListBySceneRequest, opts ...grpc.CallOption) (*GetTagListBySceneResponse, error)
 }
 
 type tagCoreServiceClient struct {
@@ -29,10 +33,20 @@ func NewTagCoreServiceClient(cc grpc.ClientConnInterface) TagCoreServiceClient {
 	return &tagCoreServiceClient{cc}
 }
 
+func (c *tagCoreServiceClient) GetTagListByScene(ctx context.Context, in *GetTagListBySceneRequest, opts ...grpc.CallOption) (*GetTagListBySceneResponse, error) {
+	out := new(GetTagListBySceneResponse)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.tag_core.TagCoreService/GetTagListByScene", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TagCoreServiceServer is the server API for TagCoreService service.
 // All implementations must embed UnimplementedTagCoreServiceServer
 // for forward compatibility
 type TagCoreServiceServer interface {
+	GetTagListByScene(context.Context, *GetTagListBySceneRequest) (*GetTagListBySceneResponse, error)
 	mustEmbedUnimplementedTagCoreServiceServer()
 }
 
@@ -40,6 +54,9 @@ type TagCoreServiceServer interface {
 type UnimplementedTagCoreServiceServer struct {
 }
 
+func (UnimplementedTagCoreServiceServer) GetTagListByScene(context.Context, *GetTagListBySceneRequest) (*GetTagListBySceneResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTagListByScene not implemented")
+}
 func (UnimplementedTagCoreServiceServer) mustEmbedUnimplementedTagCoreServiceServer() {}
 
 // UnsafeTagCoreServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -53,13 +70,36 @@ func RegisterTagCoreServiceServer(s grpc.ServiceRegistrar, srv TagCoreServiceSer
 	s.RegisterService(&TagCoreService_ServiceDesc, srv)
 }
 
+func _TagCoreService_GetTagListByScene_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetTagListBySceneRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TagCoreServiceServer).GetTagListByScene(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jlu_cow_studio.tag_core.TagCoreService/GetTagListByScene",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TagCoreServiceServer).GetTagListByScene(ctx, req.(*GetTagListBySceneRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // TagCoreService_ServiceDesc is the grpc.ServiceDesc for TagCoreService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TagCoreService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "jlu_cow_studio.tag_core.TagCoreService",
 	HandlerType: (*TagCoreServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "tag_core.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "GetTagListByScene",
+			Handler:    _TagCoreService_GetTagListByScene_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "tag_core.proto",
 }
