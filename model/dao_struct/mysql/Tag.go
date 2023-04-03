@@ -30,5 +30,5 @@ type TagWithCategory struct {
 
 type TagCategoryWithList struct {
 	TagCategory
-	TagList []*Tag `gorm:"foreignKey:CategoryID"`
+	TagList []*Tag `gorm:"foreignKey:category_id"`
 }
