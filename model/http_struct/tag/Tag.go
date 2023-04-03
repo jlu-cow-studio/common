@@ -52,8 +52,7 @@ type GetTagListByItemRes struct {
 }
 
 type GetTagListByUserReq struct {
-	Base   http_struct.ReqBase `json:"base"`
-	UserID string              `json:"user_id"`
+	Base http_struct.ReqBase `json:"base"`
 }
 
 type GetTagListByUserRes struct {
