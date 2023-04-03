@@ -40,3 +40,23 @@ type GetTagListBySceneResponse struct {
 	Base http_struct.ResBase    `json:"base"`
 	List []*TagCategoryWithList `json:"list"`
 }
+
+type GetTagListByItemReq struct {
+	Base   http_struct.ReqBase `json:"base"`
+	ItemID string              `json:"item_id"`
+}
+
+type GetTagListByItemRes struct {
+	Base    http_struct.ResBase `json:"base"`
+	TagList []*Tag              `json:"tag_list"`
+}
+
+type GetTagListByUserReq struct {
+	Base   http_struct.ReqBase `json:"base"`
+	UserID string              `json:"user_id"`
+}
+
+type GetTagListByUserRes struct {
+	Base    http_struct.ResBase `json:"base"`
+	TagList []*Tag              `json:"tag_list"`
+}
