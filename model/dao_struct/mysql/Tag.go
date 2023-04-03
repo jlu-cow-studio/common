@@ -1,5 +1,29 @@
 package mysql
 
+const (
+	MarkObject_WholeCattle    = "whole_cattle"
+	MarkObject_CattleProduct  = "cattle_product"
+	MarkObject_Breeding       = "breeding"
+	MarkObject_Service        = "service"
+	MarkObject_ServiceProduct = "service_product"
+	MarkObject_Live           = "live"
+	MarkObject_Tweet          = "tweet"
+	MarkObject_User           = "user"
+	MarkObject_Interest       = "interest"
+)
+
+var MarkObjectMap = map[string]interface{}{
+	MarkObject_WholeCattle:    nil,
+	MarkObject_CattleProduct:  nil,
+	MarkObject_Breeding:       nil,
+	MarkObject_Service:        nil,
+	MarkObject_ServiceProduct: nil,
+	MarkObject_Live:           nil,
+	MarkObject_Tweet:          nil,
+	MarkObject_User:           nil,
+	MarkObject_Interest:       nil,
+}
+
 type Tag struct {
 	ID         int64   `gorm:"column:tag_id;primaryKey;autoIncrement"`
 	Name       string  `gorm:"column:tag_name;not null"`
