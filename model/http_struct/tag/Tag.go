@@ -52,10 +52,19 @@ type GetTagListByItemRes struct {
 }
 
 type GetTagListByUserReq struct {
-	Base http_struct.ReqBase `json:"base"`
+	http_struct.OnlyBaseReq
 }
 
 type GetTagListByUserRes struct {
 	Base    http_struct.ResBase `json:"base"`
 	TagList []*Tag              `json:"tag_list"`
+}
+
+type UpdateUserTagsReq struct {
+	Base    http_struct.ReqBase `json:"base"`
+	TagList []string            `json:"tag_list"`
+}
+
+type UpdateUserTagsRes struct {
+	http_struct.OnlyBaseRes
 }
