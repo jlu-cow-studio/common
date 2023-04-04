@@ -52,7 +52,7 @@ type GetTagListByItemRes struct {
 }
 
 type GetTagListByUserReq struct {
-	http_struct.OnlyBaseReq
+	Base http_struct.ReqBase `json:"base"`
 }
 
 type GetTagListByUserRes struct {
@@ -66,5 +66,5 @@ type UpdateUserTagsReq struct {
 }
 
 type UpdateUserTagsRes struct {
-	http_struct.OnlyBaseRes
+	Base http_struct.ResBase `jons:"base"`
 }
