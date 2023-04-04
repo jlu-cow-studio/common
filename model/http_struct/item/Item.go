@@ -2,7 +2,6 @@ package item
 
 import (
 	"github.com/jlu-cow-studio/common/model/http_struct"
-	"github.com/jlu-cow-studio/common/model/http_struct/tag"
 )
 
 const (
@@ -32,7 +31,7 @@ type ItemInfo struct {
 type AddItemReq struct {
 	Base     http_struct.ReqBase `json:"base"`
 	ItemInfo ItemInfo            `json:"item_info"`
-	TagList  []*tag.Tag          `json:"tag_list"`
+	TagList  []string            `json:"tag_list"`
 }
 
 type AddItemRes struct {
@@ -52,7 +51,7 @@ type DeleteItemRes struct {
 type UpdateItemReq struct {
 	Base     http_struct.ReqBase `json:"base"`
 	ItemInfo ItemInfo            `json:"item_info"`
-	TagList  []*tag.Tag          `json:"tag_list"`
+	TagList  []string            `json:"tag_list"`
 }
 
 type UpdateItemRes struct {
