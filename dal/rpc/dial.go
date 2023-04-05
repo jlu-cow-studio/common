@@ -77,13 +77,13 @@ func GetTagCoreCli() (tag_core.TagCoreServiceClient, error) {
 	return tag_core.NewTagCoreServiceClient(conn), nil
 }
 
-func GetTradeCoreCli() (trade_core.TreadeCoreServiceClient, error) {
+func GetTradeCoreCli() (trade_core.TradeCoreServiceClient, error) {
 	conn, err := GetConn(ServiceName_TradeCore)
 	if err != nil {
 		return nil, err
 	}
 
-	return trade_core.NewTreadeCoreServiceClient(conn), nil
+	return trade_core.NewTradeCoreServiceClient(conn), nil
 }
 
 // func GetDataCollectorCli() (data_collector.DataCollectorServiceClient, error) {

@@ -18,158 +18,158 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// TreadeCoreServiceClient is the client API for TreadeCoreService service.
+// TradeCoreServiceClient is the client API for TradeCoreService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type TreadeCoreServiceClient interface {
+type TradeCoreServiceClient interface {
 	Recharge(ctx context.Context, in *RechargeRequest, opts ...grpc.CallOption) (*RechargeResponse, error)
 	Order(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*OrderResponse, error)
 	OrderList(ctx context.Context, in *OrderListRequest, opts ...grpc.CallOption) (*OrderListResponse, error)
 }
 
-type treadeCoreServiceClient struct {
+type tradeCoreServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewTreadeCoreServiceClient(cc grpc.ClientConnInterface) TreadeCoreServiceClient {
-	return &treadeCoreServiceClient{cc}
+func NewTradeCoreServiceClient(cc grpc.ClientConnInterface) TradeCoreServiceClient {
+	return &tradeCoreServiceClient{cc}
 }
 
-func (c *treadeCoreServiceClient) Recharge(ctx context.Context, in *RechargeRequest, opts ...grpc.CallOption) (*RechargeResponse, error) {
+func (c *tradeCoreServiceClient) Recharge(ctx context.Context, in *RechargeRequest, opts ...grpc.CallOption) (*RechargeResponse, error) {
 	out := new(RechargeResponse)
-	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TreadeCoreService/Recharge", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TradeCoreService/Recharge", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *treadeCoreServiceClient) Order(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*OrderResponse, error) {
+func (c *tradeCoreServiceClient) Order(ctx context.Context, in *OrderRequest, opts ...grpc.CallOption) (*OrderResponse, error) {
 	out := new(OrderResponse)
-	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TreadeCoreService/Order", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TradeCoreService/Order", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *treadeCoreServiceClient) OrderList(ctx context.Context, in *OrderListRequest, opts ...grpc.CallOption) (*OrderListResponse, error) {
+func (c *tradeCoreServiceClient) OrderList(ctx context.Context, in *OrderListRequest, opts ...grpc.CallOption) (*OrderListResponse, error) {
 	out := new(OrderListResponse)
-	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TreadeCoreService/OrderList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.trade_core.TradeCoreService/OrderList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// TreadeCoreServiceServer is the server API for TreadeCoreService service.
-// All implementations must embed UnimplementedTreadeCoreServiceServer
+// TradeCoreServiceServer is the server API for TradeCoreService service.
+// All implementations must embed UnimplementedTradeCoreServiceServer
 // for forward compatibility
-type TreadeCoreServiceServer interface {
+type TradeCoreServiceServer interface {
 	Recharge(context.Context, *RechargeRequest) (*RechargeResponse, error)
 	Order(context.Context, *OrderRequest) (*OrderResponse, error)
 	OrderList(context.Context, *OrderListRequest) (*OrderListResponse, error)
-	mustEmbedUnimplementedTreadeCoreServiceServer()
+	mustEmbedUnimplementedTradeCoreServiceServer()
 }
 
-// UnimplementedTreadeCoreServiceServer must be embedded to have forward compatible implementations.
-type UnimplementedTreadeCoreServiceServer struct {
+// UnimplementedTradeCoreServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedTradeCoreServiceServer struct {
 }
 
-func (UnimplementedTreadeCoreServiceServer) Recharge(context.Context, *RechargeRequest) (*RechargeResponse, error) {
+func (UnimplementedTradeCoreServiceServer) Recharge(context.Context, *RechargeRequest) (*RechargeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Recharge not implemented")
 }
-func (UnimplementedTreadeCoreServiceServer) Order(context.Context, *OrderRequest) (*OrderResponse, error) {
+func (UnimplementedTradeCoreServiceServer) Order(context.Context, *OrderRequest) (*OrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Order not implemented")
 }
-func (UnimplementedTreadeCoreServiceServer) OrderList(context.Context, *OrderListRequest) (*OrderListResponse, error) {
+func (UnimplementedTradeCoreServiceServer) OrderList(context.Context, *OrderListRequest) (*OrderListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method OrderList not implemented")
 }
-func (UnimplementedTreadeCoreServiceServer) mustEmbedUnimplementedTreadeCoreServiceServer() {}
+func (UnimplementedTradeCoreServiceServer) mustEmbedUnimplementedTradeCoreServiceServer() {}
 
-// UnsafeTreadeCoreServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to TreadeCoreServiceServer will
+// UnsafeTradeCoreServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to TradeCoreServiceServer will
 // result in compilation errors.
-type UnsafeTreadeCoreServiceServer interface {
-	mustEmbedUnimplementedTreadeCoreServiceServer()
+type UnsafeTradeCoreServiceServer interface {
+	mustEmbedUnimplementedTradeCoreServiceServer()
 }
 
-func RegisterTreadeCoreServiceServer(s grpc.ServiceRegistrar, srv TreadeCoreServiceServer) {
-	s.RegisterService(&TreadeCoreService_ServiceDesc, srv)
+func RegisterTradeCoreServiceServer(s grpc.ServiceRegistrar, srv TradeCoreServiceServer) {
+	s.RegisterService(&TradeCoreService_ServiceDesc, srv)
 }
 
-func _TreadeCoreService_Recharge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TradeCoreService_Recharge_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RechargeRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TreadeCoreServiceServer).Recharge(ctx, in)
+		return srv.(TradeCoreServiceServer).Recharge(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/jlu_cow_studio.trade_core.TreadeCoreService/Recharge",
+		FullMethod: "/jlu_cow_studio.trade_core.TradeCoreService/Recharge",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TreadeCoreServiceServer).Recharge(ctx, req.(*RechargeRequest))
+		return srv.(TradeCoreServiceServer).Recharge(ctx, req.(*RechargeRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TreadeCoreService_Order_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TradeCoreService_Order_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TreadeCoreServiceServer).Order(ctx, in)
+		return srv.(TradeCoreServiceServer).Order(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/jlu_cow_studio.trade_core.TreadeCoreService/Order",
+		FullMethod: "/jlu_cow_studio.trade_core.TradeCoreService/Order",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TreadeCoreServiceServer).Order(ctx, req.(*OrderRequest))
+		return srv.(TradeCoreServiceServer).Order(ctx, req.(*OrderRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _TreadeCoreService_OrderList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _TradeCoreService_OrderList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TreadeCoreServiceServer).OrderList(ctx, in)
+		return srv.(TradeCoreServiceServer).OrderList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/jlu_cow_studio.trade_core.TreadeCoreService/OrderList",
+		FullMethod: "/jlu_cow_studio.trade_core.TradeCoreService/OrderList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TreadeCoreServiceServer).OrderList(ctx, req.(*OrderListRequest))
+		return srv.(TradeCoreServiceServer).OrderList(ctx, req.(*OrderListRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// TreadeCoreService_ServiceDesc is the grpc.ServiceDesc for TreadeCoreService service.
+// TradeCoreService_ServiceDesc is the grpc.ServiceDesc for TradeCoreService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var TreadeCoreService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "jlu_cow_studio.trade_core.TreadeCoreService",
-	HandlerType: (*TreadeCoreServiceServer)(nil),
+var TradeCoreService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "jlu_cow_studio.trade_core.TradeCoreService",
+	HandlerType: (*TradeCoreServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Recharge",
-			Handler:    _TreadeCoreService_Recharge_Handler,
+			Handler:    _TradeCoreService_Recharge_Handler,
 		},
 		{
 			MethodName: "Order",
-			Handler:    _TreadeCoreService_Order_Handler,
+			Handler:    _TradeCoreService_Order_Handler,
 		},
 		{
 			MethodName: "OrderList",
-			Handler:    _TreadeCoreService_OrderList_Handler,
+			Handler:    _TradeCoreService_OrderList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
