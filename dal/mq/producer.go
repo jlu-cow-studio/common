@@ -1,6 +1,9 @@
 package mq
 
 import (
+	"context"
+	"encoding/json"
+	"fmt"
 	"sync"
 
 	"github.com/segmentio/kafka-go"
@@ -26,4 +29,19 @@ func GetWritter(topic string) *kafka.Writer {
 	writerMap[topic] = writer
 
 	return writer
+}
+
+func SendMessage(ctx context.Context, topic string, msg interface{}) error {
+	writter := GetWritter(topic)
+	if writter == nil {
+		return fmt.Errorf("unknown topic")
+	}
+	val, err := json.Marshal(msg)
+	if err != nil {
+		return nil
+	}
+
+	return writter.WriteMessages(ctx, kafka.Message{
+		Value: val,
+	})
 }
