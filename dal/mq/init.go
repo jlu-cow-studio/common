@@ -13,6 +13,12 @@ const (
 	Topic_UserAction  = "user_action"
 )
 
+var TopicList = []string{
+	Topic_ItemChange,
+	Topic_ClientEvent,
+	Topic_UserAction,
+}
+
 var (
 	addressConsumer string
 	addressProducer string
@@ -30,13 +36,8 @@ func Init() {
 
 	log.Println("get address ", addressConsumer, addressProducer)
 
-	topics := []string{
-		Topic_ItemChange,
-		Topic_ClientEvent,
-	}
-
 	log.Println("registering topics ...")
-	for _, topic := range topics {
+	for _, topic := range TopicList {
 		err := RegisterTopic(addressProducer, topic)
 		if err != nil {
 			panic(err)
