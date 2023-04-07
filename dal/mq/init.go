@@ -10,6 +10,7 @@ import (
 const (
 	Topic_ItemChange  = "item_change"
 	Topic_ClientEvent = "client_event"
+	Topic_UserAction  = "user_action"
 )
 
 var (
