@@ -1,4 +1,4 @@
-package http_struct
+package event
 
 import "github.com/jlu-cow-studio/common/model/http_struct"
 
