@@ -57,3 +57,13 @@ type UpdateItemReq struct {
 type UpdateItemRes struct {
 	Base http_struct.ResBase `json:"base"`
 }
+
+type AddFavoriteReq struct {
+	Base   http_struct.ReqBase `json:"base"`
+	ItemID int32               `json:"item_id"`
+	Action string              `json:"action"`
+}
+
+type AddFavoriteRes struct {
+	Base http_struct.ResBase `json:"base"`
+}
