@@ -10,6 +10,9 @@ const (
 	Category_Breeding       = "breeding"
 	Category_Service        = "service"
 	Category_ServiceProduct = "service_product"
+
+	AddFavoriteAction_Add = "add"
+	AddFovoriteAction_Del = "del"
 )
 
 type ItemInfo struct {
