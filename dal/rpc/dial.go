@@ -3,6 +3,7 @@ package rpc
 import (
 	"sync"
 
+	"github.com/jlu-cow-studio/common/dal/rpc/data_collector"
 	"github.com/jlu-cow-studio/common/dal/rpc/feed_service"
 	"github.com/jlu-cow-studio/common/dal/rpc/pack"
 	"github.com/jlu-cow-studio/common/dal/rpc/product_core"
@@ -86,14 +87,14 @@ func GetTradeCoreCli() (trade_core.TradeCoreServiceClient, error) {
 	return trade_core.NewTradeCoreServiceClient(conn), nil
 }
 
-// func GetDataCollectorCli() (data_collector.DataCollectorServiceClient, error) {
-// 	conn, err := GetConn(ServiceName_DataCollector)
-// 	if err != nil {
-// 		return nil, err
-// 	}
+func GetDataCollectorCli() (data_collector.DataCollectorServiceClient, error) {
+	conn, err := GetConn(ServiceName_DataCollector)
+	if err != nil {
+		return nil, err
+	}
 
-// 	return data_collector.NewDataCollectorServiceClient(conn), nil
-// }
+	return data_collector.NewDataCollectorServiceClient(conn), nil
+}
 
 func GetPackCli() (pack.PackServiceClient, error) {
 	conn, err := GetConn(ServiceName_Pack)
