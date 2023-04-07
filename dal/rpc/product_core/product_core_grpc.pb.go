@@ -28,6 +28,8 @@ type ProductCoreServiceClient interface {
 	DeleteItem(ctx context.Context, in *DeleteItemReq, opts ...grpc.CallOption) (*DeleteItemRes, error)
 	// 修改商品信息方法
 	UpdateItem(ctx context.Context, in *UpdateItemReq, opts ...grpc.CallOption) (*UpdateItemRes, error)
+	//商品种草
+	AddFavorite(ctx context.Context, in *AddFavoriteReq, opts ...grpc.CallOption) (*AddFavoriteRes, error)
 }
 
 type productCoreServiceClient struct {
@@ -65,6 +67,15 @@ func (c *productCoreServiceClient) UpdateItem(ctx context.Context, in *UpdateIte
 	return out, nil
 }
 
+func (c *productCoreServiceClient) AddFavorite(ctx context.Context, in *AddFavoriteReq, opts ...grpc.CallOption) (*AddFavoriteRes, error) {
+	out := new(AddFavoriteRes)
+	err := c.cc.Invoke(ctx, "/jlu_cow_studio.product_core.ProductCoreService/AddFavorite", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ProductCoreServiceServer is the server API for ProductCoreService service.
 // All implementations must embed UnimplementedProductCoreServiceServer
 // for forward compatibility
@@ -75,6 +86,8 @@ type ProductCoreServiceServer interface {
 	DeleteItem(context.Context, *DeleteItemReq) (*DeleteItemRes, error)
 	// 修改商品信息方法
 	UpdateItem(context.Context, *UpdateItemReq) (*UpdateItemRes, error)
+	//商品种草
+	AddFavorite(context.Context, *AddFavoriteReq) (*AddFavoriteRes, error)
 	mustEmbedUnimplementedProductCoreServiceServer()
 }
 
@@ -90,6 +103,9 @@ func (UnimplementedProductCoreServiceServer) DeleteItem(context.Context, *Delete
 }
 func (UnimplementedProductCoreServiceServer) UpdateItem(context.Context, *UpdateItemReq) (*UpdateItemRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateItem not implemented")
+}
+func (UnimplementedProductCoreServiceServer) AddFavorite(context.Context, *AddFavoriteReq) (*AddFavoriteRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddFavorite not implemented")
 }
 func (UnimplementedProductCoreServiceServer) mustEmbedUnimplementedProductCoreServiceServer() {}
 
@@ -158,6 +174,24 @@ func _ProductCoreService_UpdateItem_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProductCoreService_AddFavorite_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddFavoriteReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProductCoreServiceServer).AddFavorite(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/jlu_cow_studio.product_core.ProductCoreService/AddFavorite",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProductCoreServiceServer).AddFavorite(ctx, req.(*AddFavoriteReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ProductCoreService_ServiceDesc is the grpc.ServiceDesc for ProductCoreService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +210,10 @@ var ProductCoreService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateItem",
 			Handler:    _ProductCoreService_UpdateItem_Handler,
+		},
+		{
+			MethodName: "AddFavorite",
+			Handler:    _ProductCoreService_AddFavorite_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
